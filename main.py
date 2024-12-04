@@ -67,9 +67,11 @@ def visualize_clusters(user_item_matrix, clusters):
 
     tsne = TSNE(n_components=2, random_state=42)
     tsne_results = tsne.fit_transform(user_item_matrix)
+
+    fig, ax = plt.subplots()
     
     plt.figure(figsize=(10, 7))
-    scatter = plt.scatter(tsne_results[:, 0], tsne_results[:, 1], c=clusters, cmap='viridis')
+    scatter = plt.scatter(tsne_results[:, 0], tsne_results[:, 1], c=clusters, cmap='viridis', alpha=0.6)
     plt.colorbar(scatter, ticks=range(max(clusters) + 1))
     plt.title("t-SNE visualization of Clusters")
     plt.xlabel("t-SNE feature 1")
@@ -77,7 +79,8 @@ def visualize_clusters(user_item_matrix, clusters):
 
     end_time = time.time()
     logging.info(f"Cluster visualization completed. Time taken: {end_time - start_time:.2f} seconds.")
-    plt.show()
+    #plt.show()
+    return fig
 
 # 4. 집계 기법을 사용하여 그룹별 상위 10개 상품을 추천
 # 각 클러스터(3 군집), 각 집계 기법(6가지)에 따른 상위 10개의 추천 영화를 반환 (3x6 = 18 개의 len=10짜리 list)
